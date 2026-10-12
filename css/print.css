@@ -1,0 +1,57 @@
+/* ==========================================================================
+   print.css — export PDF (Chrome headless) : 1 slide = 1 page 16:9
+   ========================================================================== */
+@page { size: 13.333in 7.5in; margin: 0; }
+
+@media print {
+  html, body { overflow: visible !important; background: #06131F !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  .bg, .top, .dots, .counter, .arrownav, .progress, .overlay { display: none !important; }
+  .deck { position: static !important; }
+
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important; visibility: visible !important; transform: none !important;
+    width: 13.333in; height: 7.5in;
+    padding: 0.72in 0.66in 0.6in !important;
+    page-break-after: always; break-after: page; break-inside: avoid;
+    overflow: hidden !important;
+    background:
+      radial-gradient(52% 42% at 82% 6%, rgba(0,200,238,.16), transparent 60%),
+      radial-gradient(46% 40% at 8% 96%, rgba(15,163,127,.14), transparent 62%),
+      linear-gradient(150deg, #06131F 0%, #0A2036 52%, #07192a 100%) !important;
+  }
+  .slide:last-child { page-break-after: auto !important; break-after: auto !important; }
+  .slide__inner { max-width: 100% !important; max-height: none !important; }
+
+  .rise { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+  /* simulateurs : remplacer le canvas live par un visuel imprimé */
+  .sim__stage canvas, .vrstage canvas { display: none !important; }
+  .sim__stage {
+    min-height: 430px !important; display: grid !important; place-items: center !important;
+    background: radial-gradient(60% 60% at 50% 45%, rgba(0,200,238,.15), transparent 70%), #04101b !important;
+  }
+  .sim__stage::after {
+    content: "Simulation interactive disponible dans la version HTML (navigateur)";
+    color: #8FA9BE; font-family: "JetBrains Mono", monospace; font-size: 12px;
+    letter-spacing: .06em; text-align: center; padding: 0 24px; max-width: 420px;
+  }
+  .vrstage { min-height: 480px !important; display: grid !important; place-items: center !important; }
+  .vrstage::after {
+    content: "Salle d'urgence 3D / WebXR — expérience interactive dans la version HTML";
+    color: #8FA9BE; font-family: "JetBrains Mono", monospace; font-size: 12px; text-align: center;
+  }
+  .vrnote { display: none !important; }
+  #vrInfo { display: none !important; }
+
+  /* le tableau annexe ne doit pas être coupé */
+  .card { overflow: visible !important; max-height: none !important; }
+
+  /* grille/cards : garder les fonds */
+  .card { background: rgba(255,255,255,.045) !important; }
+
+  a { text-decoration: none !important; color: inherit !important; }
+}
