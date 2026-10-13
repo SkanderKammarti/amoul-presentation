@@ -327,19 +327,109 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;heigh
 
 .smallprint{font-size:10.5px;color:#5A7089;line-height:1.5}
 
-/* responsive */
+/* ================================================================
+   RESPONSIVE / MOBILE
+   ================================================================ */
+
+/* ---- indice d'orientation (téléphone en portrait) ---- */
+.rotatehint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;
+  background:rgba(6,19,31,.96);border:1px solid rgba(0,200,238,.4);color:#DCEAF6;
+  font-size:12.5px;line-height:1.35;padding:11px 18px;border-radius:999px;
+  box-shadow:var(--shadow);display:none;max-width:92vw;text-align:center}
+.rotatehint b{color:#5EE9C4}
+@media (orientation:portrait) and (max-width:760px){
+  .rotatehint.show{display:block;animation:rise .5s cubic-bezier(.22,.61,.36,1) both}
+}
+
+/* ---- tablettes / fenêtres moyennes ---- */
 @media (max-width:1080px){
-  .cols,.prod,.sim{grid-template-columns:1fr}
+  .cols,.prod,.sim{grid-template-columns:1fr !important}
   .g4{grid-template-columns:repeat(2,1fr)}
   .g3{grid-template-columns:repeat(2,1fr)}
-  .slide{padding:78px 30px 66px;overflow-y:auto}
+  .slide{padding:78px 30px 66px;overflow-y:auto;-webkit-overflow-scrolling:touch;align-items:flex-start !important}
+  .slide__inner{max-width:100%;max-height:none}
 }
-@media (max-width:680px){
-  .g2,.g3,.g4{grid-template-columns:1fr}
-  .brand__mam{display:none}
+
+/* ---- téléphones couchés (hauteur réduite) ---- */
+@media (max-height:520px){
+  .slide{padding:54px 26px 46px;align-items:flex-start !important}
+  .slide__inner{max-height:none}
+  .top{height:44px}
+  .brand__logo{height:22px}
+  h1{font-size:clamp(1.5rem,3.8vw,2.3rem)}
+  h2{font-size:clamp(1.15rem,3vw,1.7rem)}
+}
+
+/* ---- téléphones ---- */
+@media (max-width:760px){
+  .slide{padding:60px 14px 54px;align-items:flex-start !important;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .slide__inner{max-width:100%;max-height:none}
+
+  /* chrome compact */
+  .top{height:50px;padding:0 12px;gap:10px}
+  .brand__logo{height:24px}
+  .brand__x,.brand__mam{display:none}
   .top__tools .lab{display:none}
-  .dots{display:none}
+  .tbtn{padding:8px 10px;gap:0}
+  .dots,.arrownav{display:none}
+  .counter{right:12px;bottom:10px;font-size:11px}
+
+  /* une seule colonne partout (prime sur les styles inline) */
+  .cols,.prod,.sim,.g2,.g3,.g4{grid-template-columns:1fr !important}
+
+  /* typographie */
+  h1{font-size:clamp(1.8rem,8.6vw,2.5rem);line-height:1.02;letter-spacing:-.03em}
+  h2{font-size:clamp(1.3rem,6.4vw,1.7rem);line-height:1.1}
+  h3{font-size:1.02rem}
+  .lead{font-size:.98rem;line-height:1.55}
+  .sub{font-size:.9rem}
+  .kicker{font-size:10px;letter-spacing:.16em}
+  .statrow{gap:16px 22px}
+  .stat b{font-size:1.5rem}
+
+  /* médias */
+  .prod__shot{height:min(40vh,290px) !important}
+  .sim__stage{min-height:230px !important}
+  .vrstage{height:52vh}
+  .play{width:54px;height:54px}
+  .play svg{width:20px;height:20px}
+  .video{border-radius:12px}
+
+  /* blocs */
+  .grid{gap:12px}
+  .card{padding:16px;border-radius:16px}
+  .mt{margin-top:16px}.mt-l{margin-top:22px}
+  .divider{margin:14px 0}
+
+  /* sommaire */
+  .overlay{padding:62px 16px 30px}
+  .ovgrid{grid-template-columns:1fr 1fr;gap:10px}
+  .ovcard{padding:12px}
+
+  /* tableaux : défilement horizontal fluide */
+  .slide table{min-width:620px}
+  .slide [data-scrollable],.slide [style*="overflow:auto"]{-webkit-overflow-scrolling:touch}
+
+  /* panneau info VR : plein largeur en bas */
+  #vrInfo{width:calc(100% - 24px) !important;right:12px !important;left:12px !important;
+    top:auto !important;bottom:12px !important;max-height:42%}
+  .vrnote{right:10px;bottom:8px}
+  .hint{font-size:10px}
 }
+
+/* ---- petits téléphones ---- */
+@media (max-width:380px){
+  h1{font-size:1.6rem}
+  .ovgrid{grid-template-columns:1fr}
+  .slide table{min-width:560px}
+  .stat b{font-size:1.35rem}
+}
+
+/* ---- grands écrans ---- */
+@media (min-width:1500px){
+  .slide__inner{max-width:1320px}
+}
+
 @media (prefers-reduced-motion:reduce){
   .bg::before{animation:none}.mapdot{animation:none}.slide{transition:none}
 }

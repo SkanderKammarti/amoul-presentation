@@ -129,6 +129,27 @@
   if (btnFs) btnFs.addEventListener('click', toggleFullscreen);
   if (btnPrint) btnPrint.addEventListener('click', function () { window.print(); });
 
+  /* ---------- portrait hint (mobile) ---------- */
+  (function () {
+    const hint = document.getElementById('rotateHint');
+    if (!hint) return;
+    const isPhone = function () { return window.matchMedia('(max-width:760px)').matches; };
+    const isPortrait = function () { return window.matchMedia('(orientation:portrait)').matches; };
+    let timer = null;
+    function refresh() {
+      clearTimeout(timer);
+      if (isPhone() && isPortrait()) {
+        hint.classList.add('show');
+        timer = setTimeout(function () { hint.classList.remove('show'); }, 7000);
+      } else {
+        hint.classList.remove('show');
+      }
+    }
+    window.addEventListener('orientationchange', function () { setTimeout(refresh, 350); });
+    window.addEventListener('resize', refresh);
+    refresh();
+  })();
+
   /* ---------- hash boot ---------- */
   function bootFromHash() {
     const m = /#\/(\d+)/.exec(location.hash);
